@@ -41,30 +41,29 @@
 这是本次架构的精髓：**将核心逻辑“库化”**。
 
 #### 1. 系统全景 (System Topology)
-
 ```mermaid
 graph TD
     subgraph "External World"
-        Web[Web Frontend / App]
-        Bot[Scalper Bot]
+        Web["Web Frontend / App"]
+        Bot["Scalper Bot"]
     end
 
     subgraph "Galaxy SaaS Platform (The Host)"
-        API[API Gateway (Gin)]
-        DB[(MySQL - Persistence)]
+        API["API Gateway (Gin)"]
+        DB[("MySQL - Persistence")]
         
         subgraph "Galaxy-Engine (The SDK)"
             direction TB
-            Interface[Engine Facade]
+            Interface["Engine Facade"]
             
             subgraph "Logic Core"
-                SeatMgr[Seat Manager]
-                Algo[Bitmap Algorithms]
+                SeatMgr["Seat Manager"]
+                Algo["Bitmap Algorithms"]
             end
             
             subgraph "Drivers"
-                RedisDriver[Redis Bitmap Impl]
-                MemDriver[Memory Impl (Test)]
+                RedisDriver["Redis Bitmap Impl"]
+                MemDriver["Memory Impl (Test)"]
             end
         end
         
@@ -74,11 +73,11 @@ graph TD
     end
 
     subgraph "Infrastructure"
-        Redis[(Redis Cluster)]
+        Redis[("Redis Cluster")]
     end
 
     subgraph "Risk Zone (Sidecar)"
-        PyRisk[Python Risk Engine]
+        PyRisk["Python Risk Engine"]
     end
 
     RedisDriver --> |BitOps| Redis
